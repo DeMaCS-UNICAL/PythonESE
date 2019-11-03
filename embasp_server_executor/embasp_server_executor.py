@@ -21,7 +21,7 @@ from embasp.specializations.dlv.desktop.dlv_desktop_service import DLVDesktopSer
 from embasp.specializations.dlv2.desktop.dlv2_desktop_service import DLV2DesktopService
 
 
-p = re.compile('[\\w=-]*')
+p = re.compile("[\\w=-]*")
 
 executables = {}
 
@@ -31,13 +31,13 @@ options_dict = {
     "dlv2": ["", "free choice", "-silent", "-filter="]
 }
 
-system = ''
-if sys.platform.startswith('linux'):
-    system = 'Linux'
-elif sys.platform.startswith('win32'):
-    system = 'Windows'
-elif sys.platform.startswith('darwin'):
-    system = 'macOS'
+system = ""
+if sys.platform.startswith("linux"):
+    system = "Linux"
+elif sys.platform.startswith("win32"):
+    system = "Windows"
+elif sys.platform.startswith("darwin"):
+    system = "macOS"
 print("system is:", system)
 
 
@@ -50,12 +50,12 @@ class MyCallback(Callback):
         # print("callback called", o.get_output(), o.get_errors())
         # self.websocket.send(get_output_data(
         #     model=o.get_output(), error=o.get_errors()))
-        o_output, o_errors = '', ''
+        o_output, o_errors = "", ""
         if o.get_output() is not None:
-            o_output = (o.get_output()[:max_chars_output] + '\n[...]\nDo you need more? Let us know') if len(
+            o_output = (o.get_output()[:max_chars_output] + "\n[...]\nDo you need more? Let us know") if len(
                 o.get_output()) > max_chars_output else o.get_output()
         if o.get_errors() is not None:
-            o_errors = (o.get_errors()[:max_chars_output] + '\n[...]\nDo you need more? Let us know') if len(
+            o_errors = (o.get_errors()[:max_chars_output] + "\n[...]\nDo you need more? Let us know") if len(
                 o.get_errors()) > max_chars_output else o.get_errors()
         self._websocket.write_message(
             get_output_data(model=o_output, error=o_errors))
@@ -67,9 +67,9 @@ def check_required_data(input_data):
     return "engine" in input_data and "language" in input_data and "program" in input_data
 
 
-def get_output_data(model='', error=''):
+def get_output_data(model="", error=""):
     if error is None:
-        error = ''
+        error = ""
     return json.dumps({"model": model, "error": error})
 
 
@@ -96,7 +96,7 @@ def get_option(option, engine):
         return option["value"][0]
 
     if "value" in option:
-        return option["name"] + ''.join(option["value"])
+        return option["name"] + "".join(option["value"])
 
     return option["name"]
 
@@ -171,8 +171,8 @@ def run_engine_tornado(websocket, message):
 
     executable = executables[engine]
 
-    if system == 'Linux':
-        exe_path = "/home/calimeri/software/script/timeout"
+    if system == "Linux":
+        exe_path = executables["timeout"]
     else:
         exe_path = executable
 
@@ -189,18 +189,18 @@ def run_engine_tornado(websocket, message):
 
     handler = DesktopHandler(service)
 
-    if system == 'Linux':
+    if system == "Linux":
         add_option(["-t", "20", "-m", "200000", "--detect-hangups",
                     "--no-info-on-success", executable], handler)
 
-    # program = ''.join(input_data["program"])
+    # program = "".join(input_data["program"])
     # print(program)
 
     inp = InputProgram()
-    if system == 'Windows':
-        inp.add_program((''.join(input_data["program"])).strip())
+    if system == "Windows":
+        inp.add_program(("".join(input_data["program"])).strip())
     else:
-        inp.add_program(''.join(input_data["program"]))
+        inp.add_program("".join(input_data["program"]))
 
     handler.add_program(inp)
 
@@ -217,7 +217,7 @@ def run_engine_tornado(websocket, message):
 
 
 class ESEWebSocket(WebSocketHandler):
-    # CORS_ORIGINS = ['localhost']
+    # CORS_ORIGINS = ["localhost"]
 
     # def check_origin(self, origin):
     #     parsed_origin = urlparse(origin)
@@ -250,22 +250,23 @@ def read_config_file():
 
     # default values
     config.read_dict({
-        'executables': {
+        "executables": {
             "dlv": "executables/dlv/dlv",
             "clingo": "executables/clingo/clingo",
-            "dlv2": "executables/dlv2/dlv2"},
-        'output': {
+            "dlv2": "executables/dlv2/dlv2",
+            "timeout": "executables/timeout/timeout"},
+        "output": {
             "max_chars": 10000
         }
     })
 
-    config.read('config.ini')
+    config.read("config.ini")
 
-    for key in config['executables']:
-        executables[key] = config['executables'][key]
+    for key in config["executables"]:
+        executables[key] = config["executables"][key]
         print(key, "path set to:", executables[key])
 
-    max_chars_output = config.getint('output', 'max_chars')
+    max_chars_output = config.getint("output", "max_chars")
     print("max_chars_output is:", max_chars_output)
 
 
