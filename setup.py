@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="PythonESE",
-    version="0.1.1",
+    version="0.1.2",
     packages=find_packages(),
     scripts=['embasp_server_executor/embasp_server_executor.py'],
 

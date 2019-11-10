@@ -21,7 +21,7 @@ Install via `pip` or
  python setup.py install
 ```
 
-Note that on Linux systems you may need to change the _Execute_ permission of the files in the [executacles](https://github.com/DeMaCS-UNICAL/PythonESE/executacles) folder.
+<!-- Note that on Linux systems you may need to change the _Execute_ permission of the files in the [executables](https://github.com/DeMaCS-UNICAL/PythonESE/executables) folder. -->
 
 ### Running
 Can be invoked using the WebSocket protocol, as explained in the [Wiki of _EmbASPServerExecutor_](https://github.com/DeMaCS-UNICAL/EmbASPServerExecutor/wiki/APIs)

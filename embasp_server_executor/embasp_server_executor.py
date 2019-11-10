@@ -25,6 +25,8 @@ p = re.compile("[\\w=-]*")
 
 executables = {}
 
+limits = {}
+
 options_dict = {
     "dlv": ["", "free choice", "-silent", "-filter=", "-nofacts", "-FC"],
     "clingo": ["", "free choice"],
@@ -190,8 +192,8 @@ def run_engine_tornado(websocket, message):
     handler = DesktopHandler(service)
 
     if system == "Linux":
-        add_option(["-t", "20", "-m", "200000", "--detect-hangups",
-                    "--no-info-on-success", executable], handler)
+        add_option(["-t", limits["time"], "-m", limits["memory"], "--detect-hangups",
+                   "--no-info-on-success", executable], handler)
 
     # program = "".join(input_data["program"])
     # print(program)
@@ -257,6 +259,10 @@ def read_config_file():
             "timeout": "executables/timeout/timeout"},
         "output": {
             "max_chars": 10000
+        },
+        "limits": {
+            "time": 20,
+            "memory": 200000
         }
     })
 
@@ -268,6 +274,10 @@ def read_config_file():
 
     max_chars_output = config.getint("output", "max_chars")
     print("max_chars_output is:", max_chars_output)
+
+    for key in config["limits"]:
+        limits[key] = config["limits"][key]
+        print(key, "limit set to:", limits[key])
 
 
 if __name__ == "__main__":
