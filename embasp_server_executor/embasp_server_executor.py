@@ -4,7 +4,8 @@ import asyncio
 import json
 # import os
 import re
-import sys
+from sys import platform
+from datetime import datetime
 from configparser import ConfigParser
 
 from tornado.ioloop import IOLoop
@@ -34,11 +35,11 @@ options_dict = {
 }
 
 system = ""
-if sys.platform.startswith("linux"):
+if platform.startswith("linux"):
     system = "Linux"
-elif sys.platform.startswith("win32"):
+elif platform.startswith("win32"):
     system = "Windows"
-elif sys.platform.startswith("darwin"):
+elif platform.startswith("darwin"):
     system = "macOS"
 print("system is:", system)
 
@@ -227,7 +228,7 @@ class ESEWebSocket(WebSocketHandler):
     #     return parsed_origin.hostname in self.CORS_ORIGINS
 
     def open(self):
-        print("\n\nWebSocket opened")
+        print("\n\n",datetime.now(),"\nWebSocket opened")
 
     def on_close(self):
         print("WebSocket closed\n\n")
