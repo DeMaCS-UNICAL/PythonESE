@@ -193,7 +193,7 @@ def run_engine_tornado(websocket, message):
     handler = DesktopHandler(service)
 
     if system == "Linux":
-        add_option(["-t", limits["time"], "-m", limits["memory"], "--detect-hangups",
+        add_options(["-t", limits["time"], "-m", limits["memory"], "--detect-hangups",
                    "--no-info-on-success", executable], handler)
 
     # program = "".join(input_data["program"])
