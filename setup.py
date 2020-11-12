@@ -5,9 +5,9 @@ with open("README.md", "r") as fh:
 
 setup(
     name="PythonESE",
-    version="0.2.1",
+    version="0.3.0",
     packages=find_packages(),
-    scripts=['embasp_server_executor/embasp_server_executor.py'],
+    scripts=['embasp_server_executor/ese_main.py'],
 
     install_requires=['embasp', 'tornado'],
 
