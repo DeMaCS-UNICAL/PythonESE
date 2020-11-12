@@ -11,6 +11,7 @@ from platforms.desktop.desktop_handler import DesktopHandler
 from specializations.clingo.desktop.clingo_desktop_service import ClingoDesktopService
 from specializations.dlv.desktop.dlv_desktop_service import DLVDesktopService
 from specializations.dlv2.desktop.dlv2_desktop_service import DLV2DesktopService
+from specializations.idlv.desktop.idlv_desktop_service import IDLVDesktopService
 from tornado.ioloop import IOLoop
 from tornado.platform.asyncio import AnyThreadEventLoopPolicy
 from tornado.web import Application
@@ -195,6 +196,8 @@ def process_program_and_options(websocket, message: str):
         service = ClingoDesktopService(exe_path)
     elif engine == "dlv2":
         service = DLV2DesktopService(exe_path)
+    elif engine == "idlv":
+        service = IDLVDesktopService(exe_path)
     else:
         websocket.write_message(get_output_data(error="Engine not supported, yet"))
         return

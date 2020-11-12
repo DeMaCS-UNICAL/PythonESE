@@ -3,6 +3,7 @@
       "dlv": "executables/dlv/dlv",
       "clingo": "executables/clingo/clingo",
       "dlv2": "executables/dlv2/dlv2",
+      "idlv": "executables/idlv/idlv",
       "timeout": "executables/timeout/timeout"},
   "output": {
       "max_chars": 10000
@@ -14,6 +15,7 @@
   "available_options": {
       "dlv": ["", "free choice", "-silent", "-filter=", "-nofacts", "-FC"],
       "clingo": ["", "free choice"],
-      "dlv2": ["", "free choice"]
+      "dlv2": ["", "free choice"],
+      "idlv": ["", "free choice"]
    }
 }

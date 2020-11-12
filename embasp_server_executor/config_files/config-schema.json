@@ -38,6 +38,10 @@
                 "dlv2": [
                     "",
                     "free choice"
+                ],
+                "idlv": [
+                    "",
+                    "free choice"
                 ]
             }
         }
@@ -67,6 +71,7 @@
                 "dlv",
                 "clingo",
                 "dlv2",
+                "idlv",
                 "timeout"
             ],
             "properties": {
@@ -98,6 +103,16 @@
                     "default": "",
                     "examples": [
                         "executables/dlv2/dlv2"
+                    ]
+                },
+                "idlv": {
+                    "$id": "#/properties/executables/properties/idlv",
+                    "type": "string",
+                    "title": "Path to the idlv binary",
+                    "description": "This is the path to the idlv binary.",
+                    "default": "",
+                    "examples": [
+                        "executables/idlv/idlv"
                     ]
                 },
                 "timeout": {
@@ -210,6 +225,7 @@
             "required": [
                 "dlv",
                 "clingo",
+                "idlv",
                 "dlv2"
             ],
             "properties": {
@@ -245,6 +261,20 @@
                     "type": "array",
                     "title": "The dlv2 available options schema",
                     "description": "Array containing all possible options for dlv2. Free choice means that you can write whatever you want as option.",
+
+                    "default": [],
+                    "examples": [
+                        [
+                            "",
+                            "free choice"
+                        ]
+                    ]
+                },
+                "idlv": {
+                    "$id": "#/properties/available_options/properties/idlv",
+                    "type": "array",
+                    "title": "The idlv available options schema",
+                    "description": "Array containing all possible options for idlv. Free choice means that you can write whatever you want as option.",
 
                     "default": [],
                     "examples": [
