@@ -147,9 +147,6 @@ def check_and_add_options(input_data, handler, engine):
 
         add_option(parse_option_as_string(option), handler)
 
-    if engine == "clingo":
-        add_option("--", handler)
-
     return ""
 
 

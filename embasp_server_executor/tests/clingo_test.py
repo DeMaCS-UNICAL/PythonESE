@@ -11,8 +11,6 @@ warnings.filterwarnings("ignore", category=RuntimeWarning)
 warnings.filterwarnings("ignore", category=ResourceWarning)
 logging.getLogger('asyncio').setLevel(logging.CRITICAL)
 
-clingo_version = "5.4.0"
-
 class ClingoTest(tornado.testing.AsyncHTTPTestCase):
 
     """
@@ -30,10 +28,8 @@ class ClingoTest(tornado.testing.AsyncHTTPTestCase):
     def test_clingo_correct_program_and_option(self):
         ws_client = yield websocket.websocket_connect(self.get_test_url())
         program = '["test(0)."]'
-        option = '[{"name": ""}]'
-        expected_output = r'{"error": "", "model": "clingo version %s\nReading from stdin\nSolving...\nAnswer: ' \
-                          r'1\ntest(0)\nSATISFIABLE\n\nModels       : 1\nCalls        : 1\nTime         : 0.000s (' \
-                          r'Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)\nCPU Time     : 0.000s\n"}' % clingo_version
+        option = '[{"name": "free choice", "value" : ["--verbose=0"]}]'
+        expected_output = r'{"error": "", "model": "test(0)\nSATISFIABLE\n"}'
 
         yield ws_client.write_message('{"language" : "asp",' 
                                       '"engine" : "clingo",' 
