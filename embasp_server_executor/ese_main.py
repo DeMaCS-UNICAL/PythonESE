@@ -5,13 +5,13 @@ import json
 import re
 from sys import platform
 
-from base.input_program import InputProgram
-from base.option_descriptor import OptionDescriptor
-from platforms.desktop.desktop_handler import DesktopHandler
-from specializations.clingo.desktop.clingo_desktop_service import ClingoDesktopService
-from specializations.dlv.desktop.dlv_desktop_service import DLVDesktopService
-from specializations.dlv2.desktop.dlv2_desktop_service import DLV2DesktopService
-from specializations.idlv.desktop.idlv_desktop_service import IDLVDesktopService
+from embasp.base.input_program import InputProgram
+from embasp.base.option_descriptor import OptionDescriptor
+from embasp.platforms.desktop.desktop_handler import DesktopHandler
+from embasp.specializations.clingo.desktop.clingo_desktop_service import ClingoDesktopService
+from embasp.specializations.dlv.desktop.dlv_desktop_service import DLVDesktopService
+from embasp.specializations.dlv2.desktop.dlv2_desktop_service import DLV2DesktopService
+from embasp.specializations.idlv.desktop.idlv_desktop_service import IDLVDesktopService
 from tornado.ioloop import IOLoop
 from tornado.platform.asyncio import AnyThreadEventLoopPolicy
 from tornado.web import Application
