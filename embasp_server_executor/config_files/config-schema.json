@@ -1,0 +1,262 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "config-schema.json",
+    "self": {
+        "vendor": "unical",
+        "name": "services",
+        "format": "jsonschema",
+        "version": "1-0-0"
+    },
+    "examples": [
+        {
+            "executables": {
+                "dlv": "executables/dlv/dlv",
+                "clingo": "executables/clingo/clingo",
+                "dlv2": "executables/dlv2/dlv2",
+                "timeout": "executables/timeout/timeout"
+            },
+            "output": {
+                "max_chars": 10000
+            },
+            "limits": {
+                "time": 20,
+                "memory": 200000
+            },
+            "available_options": {
+                "dlv": [
+                    "",
+                    "free choice",
+                    "-silent",
+                    "-filter=",
+                    "-nofacts",
+                    "-FC"
+                ],
+                "clingo": [
+                    "",
+                    "free choice"
+                ],
+                "dlv2": [
+                    "",
+                    "free choice"
+                ]
+            }
+        }
+    ],
+    "required": [
+        "executables",
+        "output",
+        "limits",
+        "available_options"
+    ],
+    "properties": {
+        "executables": {
+            "$id": "#/properties/executables",
+            "type": "object",
+            "title": "Paths to solver binaries",
+            "description": "This object contains the paths to the various executables that can be used with PythonESE",
+            "default": {},
+            "examples": [
+                  {
+                      "dlv": "executables/dlv/dlv",
+                      "clingo": "executables/clingo/clingo",
+                      "dlv2": "executables/dlv2/dlv2",
+                      "timeout": "executables/timeout/timeout"
+                  }
+              ],
+            "required": [
+                "dlv",
+                "clingo",
+                "dlv2",
+                "timeout"
+            ],
+            "properties": {
+                "dlv": {
+                    "$id": "#/properties/executables/properties/dlv",
+                    "type": "string",
+                    "title": "Path to the dlv binary",
+                    "description": "This is the path to the dlv binary.",
+                    "default": "",
+                    "examples": [
+                        "executables/dlv/dlv"
+                    ]
+                },
+                "clingo": {
+                    "$id": "#/properties/executables/properties/clingo",
+                    "type": "string",
+                    "title": "Path to the clingo binary",
+                    "description": "This is the path to the clingo binary.",
+                    "default": "",
+                    "examples": [
+                        "executables/clingo/clingo"
+                    ]
+                },
+                "dlv2": {
+                    "$id": "#/properties/executables/properties/dlv2",
+                    "type": "string",
+                    "title": "Path to the dlv2 binary",
+                    "description": "This is the path to the dlv2 binary.",
+                    "default": "",
+                    "examples": [
+                        "executables/dlv2/dlv2"
+                    ]
+                },
+                "timeout": {
+                    "$id": "#/properties/executables/properties/timeout",
+                    "type": "string",
+                    "title": "The timeout schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "executables/timeout/timeout"
+                    ]
+                }
+            },
+            "additionalProperties": true
+        },
+        "output": {
+            "$id": "#/properties/output",
+            "type": "object",
+            "title": "The output schema",
+            "description": "Here go all the info related to regulating the output.",
+            "default": {},
+            "examples": [
+                  {
+                    "max_chars": 10000
+                  }
+              ],
+            "required": [
+                "max_chars"
+            ],
+            "properties": {
+                "max_chars": {
+                    "$id": "#/properties/output/properties/max_chars",
+                    "type": "integer",
+                    "title": "The max_chars schema",
+                    "description": "This is the maximum value of chars we allow in a reply from the ESE server.",
+                    "default": 0,
+                    "examples": [
+                        10000
+                    ]
+                }
+            },
+            "additionalProperties": true
+        },
+        "limits": {
+            "$id": "#/properties/limits",
+            "type": "object",
+            "title": "The limits schema",
+            "description": "Here go all the info related to killing the solver process if it takes too much memory or time.",
+            "default": {},
+            "examples": [
+                  {
+                      "time": 20,
+                      "memory": 200000
+                  }
+              ],
+            "required": [
+                "time",
+                "memory"
+            ],
+            "properties": {
+                "time": {
+                    "$id": "#/properties/limits/properties/time",
+                    "type": "integer",
+                    "title": "The time schema",
+                    "description": "If the solver process takes more than this amount of time, we kill it.",
+                    "examples": [
+                          20
+                      ],
+                    "default": 0
+                },
+                "memory": {
+                    "$id": "#/properties/limits/properties/memory",
+                    "type": "integer",
+                    "title": "The memory schema",
+                    "description": "If the solver process takes more than this amount of memory, we kill it.",
+                    "examples": [
+                          20
+                      ],
+                    "default": 0
+                }
+            },
+            "additionalProperties": true
+        },
+        "available_options": {
+            "$id": "#/properties/available_options",
+            "type": "object",
+            "title": "Available options schema",
+            "description": "Here are all the available options for each solver. Recall that different solvers have different options available.",
+            "default": {},
+            "examples": [
+                {
+                    "dlv": [
+                        "",
+                        "free choice",
+                        "-silent",
+                        "-filter=",
+                        "-nofacts",
+                        "-FC"
+                    ],
+                    "clingo": [
+                        "",
+                        "free choice"
+                    ],
+                    "dlv2": [
+                        "",
+                        "free choice"
+                    ]
+                }
+            ],
+            "required": [
+                "dlv",
+                "clingo",
+                "dlv2"
+            ],
+            "properties": {
+                "dlv": {
+                    "$id": "#/properties/available_options/properties/dlv",
+                    "type": "array",
+                    "title": "The dlv available options schema",
+                    "description": "Array containing all possible options for dlv. Free choice means that you can write whatever you want as option.",
+                    "default": [],
+                    "examples": [
+                        [
+                            "",
+                            "free choice"
+                        ]
+                    ]
+                },
+                "clingo": {
+                    "$id": "#/properties/available_options/properties/clingo",
+                    "type": "array",
+                    "title": "The clingo available options schema",
+                    "description": "Array containing all possible options for clingo. Free choice means that you can write whatever you want as option.",
+
+                    "default": [],
+                    "examples": [
+                        [
+                            "",
+                            "free choice"
+                        ]
+                    ]
+                },
+                "dlv2": {
+                    "$id": "#/properties/available_options/properties/dlv2",
+                    "type": "array",
+                    "title": "The dlv2 available options schema",
+                    "description": "Array containing all possible options for dlv2. Free choice means that you can write whatever you want as option.",
+
+                    "default": [],
+                    "examples": [
+                        [
+                            "",
+                            "free choice"
+                        ]
+                    ]
+                }
+            },
+            "additionalProperties": true
+        }
+    },
+    "additionalProperties": true
+}

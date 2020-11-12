@@ -3,7 +3,6 @@
 import asyncio
 import json
 import re
-from configparser import ConfigParser
 from sys import platform
 
 from base.input_program import InputProgram
@@ -44,28 +43,10 @@ def read_config_file():
     :return: None
     """
     global max_chars_output
+    with open("../config_files/config.json", 'r') as file:
+        file_content = file.read()
 
-    config = ConfigParser()
-
-    config.read_dict({
-        "executables": {
-            "dlv": "executables/dlv/dlv",
-            "clingo": "executables/clingo/clingo",
-            "dlv2": "executables/dlv2/dlv2",
-            "timeout": "executables/timeout/timeout"},
-        "output": {
-            "max_chars": 10000
-        },
-        "limits": {
-            "time": 20,
-            "memory": 200000
-        },
-        "available_options": {
-            "dlv": ["", "free choice", "-silent", "-filter=", "-nofacts", "-FC"],
-            "clingo": ["", "free choice"],
-            "dlv2": ["", "free choice"]
-        }
-    })
+    config = json.loads(file_content)
 
     for key in config["executables"]:
         executables[key] = config["executables"][key]
@@ -74,7 +55,7 @@ def read_config_file():
     for key in config["available_options"]:
         available_options[key] = config["available_options"][key]
 
-    max_chars_output = config.getint("output", "max_chars")
+    max_chars_output = int(config["output"]["max_chars"])
     print("max_chars_output is:", max_chars_output)
 
     for key in config["limits"]:
