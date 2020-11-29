@@ -28,8 +28,8 @@ class DLVTest(tornado.testing.AsyncHTTPTestCase):
     def test_dlv_correct_program_and_option(self):
         ws_client = yield websocket.websocket_connect(self.get_test_url())
         program = '["test(0)."]'
-        option = '[{"name": ""}]'
-        expected_output = r'{"error": "", "model": "DLV [build BEN/Dec 21 2011   gcc 4.6.1]\n\n{test(0)}\n"}'
+        option = '[{"name": "free choice", "value" : ["-silent"]}]'
+        expected_output = r'{"error": "", "model": "{test(0)}\n"}'
 
         yield ws_client.write_message('{"language" : "asp",' 
                                       '"engine" : "dlv",' 

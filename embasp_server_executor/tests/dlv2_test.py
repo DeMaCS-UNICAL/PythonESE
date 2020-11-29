@@ -28,8 +28,8 @@ class DLV2Test(tornado.testing.AsyncHTTPTestCase):
     def test_dlv2_correct_program_and_option(self):
         ws_client = yield websocket.websocket_connect(self.get_test_url())
         program = '["test(0)."]'
-        option = '[{"name": "free choice", "value": ["--t"]}]'
-        expected_output = r'{"error": "", "model": "WASP 2.0\n\n{test(0)}\n"}'
+        option = '[{"name": "free choice", "value": ["--silent=0"]}]'
+        expected_output = r'{"error": "", "model": "{test(0)}\n"}'
 
         yield ws_client.write_message('{"language" : "asp",' 
                                       '"engine" : "dlv2",' 
