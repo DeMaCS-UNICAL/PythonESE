@@ -5,16 +5,15 @@ import tornado
 from tornado import web, websocket
 from tornado.testing import gen_test
 
-from embasp_server_executor.ese_websocket import ESEWebSocket
+from embasp_server_executor.src.ese_websocket import ESEWebSocket
 
 warnings.filterwarnings("ignore", category=RuntimeWarning)
-warnings.filterwarnings("ignore", category=ResourceWarning)
 logging.getLogger('asyncio').setLevel(logging.CRITICAL)
 
-class ClingoTest(tornado.testing.AsyncHTTPTestCase):
 
+class ClingoTest(tornado.testing.AsyncHTTPTestCase):
     """
-    This class tests if the executor interfaces correctly with Clingo. Change version as needed.
+    This class test if the executor interfaces correctly with Clingo. Change version as needed.
     """
 
     def get_app(self):
@@ -31,12 +30,11 @@ class ClingoTest(tornado.testing.AsyncHTTPTestCase):
         option = '[{"name": "free choice", "value" : ["--verbose=0"]}]'
         expected_output = r'{"error": "", "model": "test(0)\nSATISFIABLE\n"}'
 
-        yield ws_client.write_message('{"language" : "asp",' 
-                                      '"engine" : "clingo",' 
-                                      '"executor" : "pythonEse",' 
-                                      '"program" : %s,' 
+        yield ws_client.write_message('{"language" : "asp",'
+                                      '"engine" : "clingo",'
+                                      '"executor" : "pythonEse",'
+                                      '"program" : %s,'
                                       '"option" : %s}' % (program, option))
-
 
         # Assert if service messages are being sent
         response = yield ws_client.read_message()

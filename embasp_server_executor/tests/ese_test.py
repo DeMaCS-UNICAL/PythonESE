@@ -5,10 +5,9 @@ import tornado
 from tornado import web, websocket
 from tornado.testing import gen_test
 
-from embasp_server_executor.ese_websocket import ESEWebSocket
+from embasp_server_executor.src.ese_websocket import ESEWebSocket
 
 warnings.filterwarnings("ignore", category=RuntimeWarning)
-warnings.filterwarnings("ignore", category=ResourceWarning)
 logging.getLogger('asyncio').setLevel(logging.CRITICAL)
 
 
@@ -22,13 +21,12 @@ def build_dummy_model(option):
 
 class ESETest(tornado.testing.AsyncHTTPTestCase):
     """
-    This class tests the processing of the input data from the client before it is sent to the solver process
+    This class test the processing of the input data from the client before it is sent to the solver process
     for execution.
     Notice how we build a "dummy" input model that contains an empty program, as it will not
     be executed at all.
-    It's not the purpose of the class: all tests stop before sending the input to the solver.
+    It's not the purpose of the class: all test stop before sending the input to the solver.
     """
-
 
     def get_app(self):
         # Set up a dummy webserver for the test.
@@ -128,5 +126,3 @@ class ESETest(tornado.testing.AsyncHTTPTestCase):
         self.assertEqual(response, '{"error": "", "model": "Received command"}')
         response = yield ws_client.read_message()
         self.assertEqual(response, expected_output)
-
-

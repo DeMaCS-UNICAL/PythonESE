@@ -5,16 +5,15 @@ import tornado
 from tornado import web, websocket
 from tornado.testing import gen_test
 
-from embasp_server_executor.ese_websocket import ESEWebSocket
+from embasp_server_executor.src.ese_websocket import ESEWebSocket
 
 warnings.filterwarnings("ignore", category=RuntimeWarning)
-warnings.filterwarnings("ignore", category=ResourceWarning)
 logging.getLogger('asyncio').setLevel(logging.CRITICAL)
 
 
 class DLVTest(tornado.testing.AsyncHTTPTestCase):
     """
-    This class tests if the executor interfaces correctly with DLV.
+    This class test if the executor interfaces correctly with DLV.
     """
 
     def get_app(self):

@@ -2,16 +2,17 @@
 
 import asyncio
 import json
+import os
 import re
 from sys import platform
 
-from embasp.base.input_program import InputProgram
-from embasp.base.option_descriptor import OptionDescriptor
-from embasp.platforms.desktop.desktop_handler import DesktopHandler
-from embasp.specializations.clingo.desktop.clingo_desktop_service import ClingoDesktopService
-from embasp.specializations.dlv.desktop.dlv_desktop_service import DLVDesktopService
-from embasp.specializations.dlv2.desktop.dlv2_desktop_service import DLV2DesktopService
-from embasp.specializations.idlv.desktop.idlv_desktop_service import IDLVDesktopService
+from base.input_program import InputProgram
+from base.option_descriptor import OptionDescriptor
+from platforms.desktop.desktop_handler import DesktopHandler
+from specializations.clingo.desktop.clingo_desktop_service import ClingoDesktopService
+from specializations.dlv.desktop.dlv_desktop_service import DLVDesktopService
+from specializations.dlv2.desktop.dlv2_desktop_service import DLV2DesktopService
+from specializations.idlv.desktop.idlv_desktop_service import IDLVDesktopService
 from tornado.ioloop import IOLoop
 from tornado.platform.asyncio import AnyThreadEventLoopPolicy
 from tornado.web import Application
@@ -19,9 +20,11 @@ from tornado.web import Application
 #
 # Instantiate globally some variables that will be used across multiple functions in the script
 #
-executables = {}
+paths = {"executables": {}, "certificate": {}}
 limits = {}
 available_options = {}
+cors_origins = []
+port_number = None
 max_chars_output = None
 
 #
@@ -44,17 +47,25 @@ def read_config_file():
     :return: None
     """
     global max_chars_output
-    with open("../config_files/config.json", 'r') as file:
+    global port_number
+    global cors_origins
+
+    with open(os.path.join("../config_files", "config.json"), 'r') as file:
         file_content = file.read()
 
     config = json.loads(file_content)
 
-    for key in config["executables"]:
-        executables[key] = config["executables"][key]
-        print(key, "path set to:", executables[key])
+    for key in config["paths"]["executables"]:
+        paths["executables"][key] = config["paths"]["executables"][key]
+        print(key, "path set to:", paths["executables"][key])
 
     for key in config["available_options"]:
         available_options[key] = config["available_options"][key]
+
+    paths["certificate"]["cert_file"] = config["paths"]["certificate"]["cert_file"]
+    paths["certificate"]["key_file"] = config["paths"]["certificate"]["key_file"]
+    port_number = config["server_properties"]["port_number"]
+    cors_origins = config["server_properties"]["cors_origins"]
 
     max_chars_output = int(config["output"]["max_chars"])
     print("max_chars_output is:", max_chars_output)
@@ -139,6 +150,7 @@ def check_and_add_options(input_data, handler, engine):
             if "value" not in option:
                 return "Wrong options"
             elif len(option["value"]) > 1:
+                # TODO add support for more than 1 free choice value
                 return "No more than 1 value supported for 'free choice' at the moment"
             elif option["value"][0] == "":
                 return "Error: empty 'free choice' option"
@@ -167,23 +179,22 @@ def process_program_and_options(websocket, message: str):
         websocket.write_message(get_output_data(error="Wrong parameters"))
         return
     else:
-        pass
         websocket.write_message(get_output_data(model="Received request for {language}, {engine}"
                                                 .format(language=input_data["language"], engine=input_data["engine"])))
 
     websocket.write_message(get_output_data(model="Running..."))
 
     engine = input_data["engine"]
-    if engine not in executables:
+    if engine not in paths["executables"]:
         websocket.write_message(get_output_data(
             error="Engine not supported, yet"))
         return
 
-    executable = executables[engine]
+    executable = paths["executables"][engine]
 
     # If running on a Linux system, use the timeout script
     if system == "Linux":
-        exe_path = executables["timeout"]
+        exe_path = paths["executables"]["timeout"]
     else:
         exe_path = executable
 
@@ -221,7 +232,7 @@ def process_program_and_options(websocket, message: str):
         return
 
     # Start the solver process
-    from embasp_server_executor.ese_callback import ESECallback
+    from embasp_server_executor.src.ese_callback import ESECallback
     handler.start_async(ESECallback(websocket))
 
 
@@ -242,7 +253,7 @@ def make_app():
     Creates an instance of the WebSocket handler.
     :return: None
     """
-    from embasp_server_executor.ese_websocket import ESEWebSocket
+    from embasp_server_executor.src.ese_websocket import ESEWebSocket
     print("Starting web Application")
     return Application([(r"/", ESEWebSocket)])
 
@@ -252,5 +263,9 @@ asyncio.set_event_loop_policy(AnyThreadEventLoopPolicy())
 
 if __name__ == "__main__":
     app = make_app()
-    app.listen(8765)
+    # app.listen(8765)
+    app.listen(port_number, ssl_options={
+        "certfile": paths["certificate"]["cert_file"],
+        "keyfile": paths["certificate"]["key_file"],
+    })
     IOLoop.current().start()
