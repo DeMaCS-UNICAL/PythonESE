@@ -3,7 +3,15 @@ _PythonESE_ is a Python web app to execute logic programs with different solvers
 
 ## IMPORTANT NOTE
 __*The project is still at an early stage of development*__  
-__*It currently supports only 3 solvers (DLV, clingo, DLV2) and one formalism (Answer Set Programming).*__  
+__*It currently supports only the following formalisms and solvers:*__  
+
+- ASP (Answer Set Programming)
+  - DLV2
+  - DLV
+  - Clingo
+- Datalog
+  - I-DLV
+  
 __*We encourage any feedback, but we do NOT recommend it for production yet.*__
 
 ## Getting Started (Installation and Usage)
