@@ -1,0 +1,350 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "config-schema.json",
+    "self": {
+        "vendor": "unical",
+        "name": "services",
+        "format": "jsonschema",
+        "version": "1-0-0"
+    },
+    "examples": [
+        {
+            "paths": {
+                "executables": {
+                    "dlv": "executables/dlv/dlv",
+                    "clingo": "executables/clingo/clingo",
+                    "dlv2": "executables/dlv2/dlv2",
+                    "idlv": "executables/idlv/idlv",
+                    "timeout": "executables/timeout/timeout"
+                },
+                "certificate": {
+                    "cert_file": "cert_files/cert.crt",
+                    "key_file": "cert_files/cert.key"
+                }
+            },
+            "server_properties": {
+                "port_number": "443",
+                "cors_origins": [
+                    "localhost"
+                ]
+            },
+            "output": {
+                "max_chars": 10000
+            },
+            "limits": {
+                "time": 20,
+                "memory": 200000
+            },
+            "available_options": {
+                "dlv": [
+                    "",
+                    "free choice",
+                    "-silent",
+                    "-filter=",
+                    "-nofacts",
+                    "-FC"
+                ],
+                "clingo": [
+                    "",
+                    "free choice"
+                ],
+                "dlv2": [
+                    "",
+                    "free choice"
+                ],
+                "idlv": [
+                    "",
+                    "free choice"
+                ]
+            }
+        }
+    ],
+    "required": ["paths",
+              "server_properties",
+              "output",
+              "limits",
+              "available_options"],
+    "properties": {
+        "paths": {
+            "$id": "#/properties/paths",
+            "type": "object",
+            "title": "All the paths to files used by the ese",
+            "examples": [
+                {
+                    "executables": {
+                        "dlv": "executables/dlv/dlv",
+                        "clingo": "executables/clingo/clingo",
+                        "dlv2": "executables/dlv2/dlv2",
+                        "idlv": "executables/idlv/idlv",
+                        "timeout": "executables/timeout/timeout"
+                    },
+                    "certificate": {
+                        "cert_file": "cert_files/cert.crt",
+                        "key_file": "cert_files/cert.key"
+                    }
+                }
+            ],
+            "required": [
+
+            ],
+            "properties": {
+                "executables": {
+                    "$id": "#/properties/paths/properties/executables",
+                    "type": "object",
+                    "title": "Paths to the executable files of the solvers",
+                    "examples": [
+                        {
+                            "dlv": "executables/dlv/dlv",
+                            "clingo": "executables/clingo/clingo",
+                            "dlv2": "executables/dlv2/dlv2",
+                            "idlv": "executables/idlv/idlv",
+                            "timeout": "executables/timeout/timeout"
+                        }
+                    ],
+                    "required": [],
+                    "properties": {
+                        "dlv": {
+                            "$id": "#/properties/paths/properties/executables/properties/dlv",
+                            "type": "string",
+                            "title": "Path to the dlv solver executable",
+                            "examples": [
+                                "executables/dlv/dlv"
+                            ]
+                        },
+                        "clingo": {
+                            "$id": "#/properties/paths/properties/executables/properties/clingo",
+                            "type": "string",
+                            "title": "Path to the clingo solver executable",
+                            "examples": [
+                                "executables/clingo/clingo"
+                            ]
+                        },
+                        "dlv2": {
+                            "$id": "#/properties/paths/properties/executables/properties/dlv2",
+                            "type": "string",
+                            "title": "Path to the dlv2 solver executable",
+                            "examples": [
+                                "executables/dlv2/dlv2"
+                            ]
+                        },
+                        "idlv": {
+                            "$id": "#/properties/paths/properties/executables/properties/idlv",
+                            "type": "string",
+                            "title": "Path to the idlv solver executable",
+                            "examples": [
+                                "executables/idlv/idlv"
+                            ]
+                        },
+                        "timeout": {
+                            "$id": "#/properties/paths/properties/executables/properties/timeout",
+                            "type": "string",
+                            "title": "Path to the timeout executable",
+                            "examples": [
+                                "executables/timeout/timeout"
+                            ]
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                "certificate": {
+                    "$id": "#/properties/paths/properties/certificate",
+                    "type": "object",
+                    "title": "Paths of certificate file and its key",
+                    "examples": [
+                        {
+                            "cert_file": "cert_files/cert.crt",
+                            "key_file": "cert_files/cert.key"
+                        }
+                    ],
+                    "required": [],
+                    "properties": {
+                        "cert_file": {
+                            "$id": "#/properties/paths/properties/certificate/properties/cert_file",
+                            "type": "string",
+                            "title": "Path to certificate",
+                            "examples": [
+                                "cert_files/cert.crt"
+                            ]
+                        },
+                        "key_file": {
+                            "$id": "#/properties/paths/properties/certificate/properties/key_file",
+                            "type": "string",
+                            "title": "Path to private key of certificate",
+                            "examples": [
+                                "cert_files/cert.key"
+                            ]
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false
+        },
+        "server_properties": {
+            "$id": "#/properties/server_properties",
+            "type": "object",
+            "title": "Informations on the server",
+            "examples": [
+                {
+                    "port_number": "443",
+                    "cors_origins": [
+                        "localhost"
+                    ]
+                }
+            ],
+            "required": [],
+            "properties": {
+                "port_number": {
+                    "$id": "#/properties/server_properties/properties/port_number",
+                    "type": "string",
+                    "title": "Port on which to run ESE",
+                    "examples": [
+                        "443"
+                    ]
+                },
+                "cors_origins": {
+                    "$id": "#/properties/server_properties/properties/cors_origins",
+                    "type": "array",
+                    "title": "Trusted origin hosts",
+                    "examples": [
+                        [
+                            "localhost"
+                        ]
+                    ],
+                }
+            },
+            "additionalProperties": false
+        },
+        "output": {
+            "$id": "#/properties/output",
+            "type": "object",
+            "title": "Here go all the information regarding the output of a solver",
+            "examples": [
+                {
+                    "max_chars": 10000
+                }
+            ],
+            "required": [],
+            "properties": {
+                "max_chars": {
+                    "$id": "#/properties/output/properties/max_chars",
+                    "type": "integer",
+                    "title": "Max chars of the response of a solver",
+                    "examples": [
+                        10000
+                    ]
+                }
+            },
+            "additionalProperties": false
+        },
+        "limits": {
+            "$id": "#/properties/limits",
+            "type": "object",
+            "title": "All the information needed for the timeout executable to monitor the solver process",
+            "examples": [
+                {
+                    "time": 20,
+                    "memory": 200000
+                }
+            ],
+            "required": [],
+            "properties": {
+                "time": {
+                    "$id": "#/properties/limits/properties/time",
+                    "type": "integer",
+                    "title": "Maximum time the solver process can take",
+                    "examples": [
+                        20
+                    ]
+                },
+                "memory": {
+                    "$id": "#/properties/limits/properties/memory",
+                    "type": "integer",
+                    "title": "Maximum memory in kb the solver process can take",
+                    "examples": [
+                        200000
+                    ]
+                }
+            },
+            "additionalProperties": false
+        },
+        "available_options": {
+            "$id": "#/properties/available_options",
+            "type": "object",
+            "title": "Options for various solvers",
+            "examples": [
+                {
+                    "dlv": [
+                        "",
+                        "free choice",
+                        "-silent",
+                        "-filter=",
+                        "-nofacts",
+                        "-FC"
+                    ],
+                    "clingo": [
+                        "",
+                        "free choice"
+                    ],
+                    "dlv2": [
+                        "",
+                        "free choice"
+                    ],
+                    "idlv": [
+                        "",
+                        "free choice"
+                    ]
+                }
+            ],
+            "required": [],
+            "properties": {
+                "dlv": {
+                    "$id": "#/properties/available_options/properties/dlv",
+                    "type": "array",
+                    "title": "The dlv possible options",
+                    "examples": [
+                        [
+                            "",
+                            "free choice"
+                        ]
+                    ]
+                },
+                "clingo": {
+                    "$id": "#/properties/available_options/properties/clingo",
+                    "type": "array",
+                    "title": "The clingo possible options",
+                    "examples": [
+                        [
+                            "",
+                            "free choice"
+                        ]
+                    ]
+                },
+                "dlv2": {
+                    "$id": "#/properties/available_options/properties/dlv2",
+                    "type": "array",
+                    "title": "The dlv2 possible options",
+                    "examples": [
+                        [
+                            "",
+                            "free choice"
+                        ]
+                    ]
+                },
+                "idlv": {
+                    "$id": "#/properties/available_options/properties/idlv",
+                    "type": "array",
+                    "title": "The idlv possible options",
+                    "examples": [
+                        [
+                            "",
+                            "free choice"
+                        ]
+                    ]
+                }
+            },
+            "additionalProperties": false
+        }
+    },
+    "additionalProperties": false
+}
