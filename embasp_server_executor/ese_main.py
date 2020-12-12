@@ -17,6 +17,9 @@ from tornado.ioloop import IOLoop
 from tornado.platform.asyncio import AnyThreadEventLoopPolicy
 from tornado.web import Application
 
+from embasp_server_executor.ese_callback import ESECallback
+from embasp_server_executor.ese_websocket import ESEWebSocket
+
 #
 # Instantiate globally some variables that will be used across multiple functions in the script
 #
@@ -232,7 +235,6 @@ def process_program_and_options(websocket, message: str):
         return
 
     # Start the solver process
-    from embasp_server_executor.src.ese_callback import ESECallback
     handler.start_async(ESECallback(websocket))
 
 
@@ -253,7 +255,6 @@ def make_app():
     Creates an instance of the WebSocket handler.
     :return: None
     """
-    from embasp_server_executor.src.ese_websocket import ESEWebSocket
     print("Starting web Application")
     return Application([(r"/", ESEWebSocket)])
 

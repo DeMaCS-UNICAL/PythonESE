@@ -1,6 +1,6 @@
 from base.callback import Callback
 
-from embasp_server_executor.src.ese_main import max_chars_output, get_output_data
+from embasp_server_executor.ese_main import max_chars_output, get_output_data
 
 
 class ESECallback(Callback):

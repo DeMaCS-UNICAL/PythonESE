@@ -4,7 +4,7 @@ from urllib.parse import urlparse
 
 from tornado.websocket import WebSocketHandler
 
-from embasp_server_executor.src.ese_main import process_program_and_options, cors_origins
+from embasp_server_executor.ese_main import process_program_and_options, cors_origins
 
 
 class ESEWebSocket(WebSocketHandler, ABC):
