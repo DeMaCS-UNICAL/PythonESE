@@ -28,7 +28,7 @@ class DLV2Test(tornado.testing.AsyncHTTPTestCase):
         ws_client = yield websocket.websocket_connect(self.get_test_url())
         program = '["test(1)."]'
         option = '[{"name": "free choice", "value": ["--silent=0"]}]'
-        expected_output = r'{"error": "", "model": "{}\n"}'
+        expected_output = r'{"error": "", "model": "{test(1)}\n"}'
 
         yield ws_client.write_message('{"language" : "asp",' 
                                       '"engine" : "dlv2",' 
