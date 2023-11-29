@@ -2,10 +2,9 @@ name: Docker Image CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "master" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
 jobs:
   push_to_registry:
@@ -63,14 +62,14 @@ jobs:
         id: meta
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
-          images: markducks/loide:ese
+          images: loideunical/loide:ese
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
           context: .
           platforms: linux/amd64
           push: true
-          tags: markducks/loide:ese
+          tags: loideunical/loide:ese
           build-args: |
             ARG_API_URL=${{ secrets.API_URL }}
             ARG_LISTENING_PORT=${{ secrets.LISTENING_PORT}}
