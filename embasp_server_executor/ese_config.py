@@ -35,8 +35,8 @@ class Config:
 
             self.paths["certificate"]["cert_file"] = config["paths"]["certificate"]["cert_file"]
             self.paths["certificate"]["key_file"] = config["paths"]["certificate"]["key_file"]
-            self.port_number = config["server_properties"]["port_number"]
-            self.cors_origins = config["server_properties"]["cors_origins"]
+            self.port_number = int(os.getenv('LISTENING_PORT', '12345'))
+            self.cors_origins = os.getenv('API_URL', 'localhost')
 
             self.max_chars_output = int(config["output"]["max_chars"])
             print("max_chars_output is:", self.max_chars_output)

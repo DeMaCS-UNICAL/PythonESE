@@ -1,11 +1,11 @@
 {
   "paths": {
-     "executables": {
-        "dlv": "executables/dlv/dlv",
-        "clingo": "executables/clingo/clingo",
-        "dlv2": "executables/dlv2/dlv2",
-        "idlv": "executables/idlv/idlv",
-        "timeout": "executables/timeout/timeout"
+    "executables": {
+      "dlv": "executables/dlv/dlv",
+      "clingo": "executables/clingo/clingo",
+      "dlv2": "executables/dlv2/dlv-2.1.1-linux-x86",
+      "idlv": "executables/idlv/idlv",
+      "timeout": ""
     },
     "certificate": {
       "cert_file": "cert_file/cert.crt",
@@ -13,21 +13,38 @@
     }
   },
   "server_properties": {
-    "port_number" : "443",
-    "cors_origins" : ["localhost"]
+    "port_number": "8084",
+    "cors_origins": [
+      "localhost"
+    ]
   },
   "output": {
-      "max_chars": 10000
+    "max_chars": 10000
   },
   "limits": {
-      "time": 20,
-      "memory": 200000
+    "time": 20,
+    "memory": 200000
   },
   "available_options": {
-      "dlv": ["", "free choice", "-silent", "-filter=", "-nofacts", "-FC"],
-      "clingo": ["", "free choice"],
-      "dlv2": ["", "free choice"],
-      "idlv": ["", "free choice"]
-   }
+    "dlv": [
+      "",
+      "free choice",
+      "-silent",
+      "-filter=",
+      "-nofacts",
+      "-FC"
+    ],
+    "clingo": [
+      "",
+      "free choice"
+    ],
+    "dlv2": [
+      "",
+      "free choice"
+    ],
+    "idlv": [
+      "",
+      "free choice"
+    ]
+  }
 }
-
