@@ -1,11 +1,11 @@
 {
   "paths": {
      "executables": {
-        "dlv": "./executables/dlv/dlv",
-        "clingo": "./executables/clingo/clingo",
-        "dlv2": "./executables/dlv2/dlv2",
-        "idlv": "./executables/idlv/idlv",
-        "custom_linux": "./executables/timeout"
+        "dlv": "executables/dlv/dlv",
+        "clingo": "executables/clingo/clingo",
+        "dlv2": "executables/dlv2/dlv2",
+        "idlv": "executables/idlv/idlv",
+        "custom_linux": "executables/timeout"
     },
     "certificate": {
       "cert_file": "cert_file/cert.crt",

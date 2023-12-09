@@ -159,7 +159,6 @@ def process_program_and_options(websocket, message: str):
 
     handler = DesktopHandler(service)
 
-    executable_dir = "./" + executable
     if system == "Linux":
         bwrap_options = [
             "-t", 
@@ -169,7 +168,7 @@ def process_program_and_options(websocket, message: str):
             "--detect-hangups",            
             "--no-info-on-success",
             "bwrap",
-            "--ro-bind", executable_dir, executable_dir,
+            "--ro-bind", executable, executable,
             "--unshare-all",
             "--new-session",
             "--die-with-parent",
