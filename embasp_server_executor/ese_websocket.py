@@ -4,11 +4,11 @@ from urllib.parse import urlparse
 
 from tornado.websocket import WebSocketHandler
 
-from embasp_server_executor.ese_config import config as ec
-from embasp_server_executor.ese_utils import process_program_and_options, get_output_data
+from ese_config import config as ec
+from ese_utils import process_program_and_options, get_output_data
 
 
-from base.callback import Callback
+from embasp.base.callback import Callback
 
 class ESEWebSocket(WebSocketHandler, Callback):
     """
