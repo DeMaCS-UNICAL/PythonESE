@@ -7,8 +7,8 @@ from tornado.ioloop import IOLoop
 # from tornado.platform.asyncio import AnyThreadEventLoopPolicy
 from tornado.web import Application
 
-from embasp_server_executor.ese_config import config as ec
-from embasp_server_executor.ese_websocket import ESEWebSocket
+from ese_config import config as ec
+from ese_websocket import ESEWebSocket
 
 def make_app():
     """
