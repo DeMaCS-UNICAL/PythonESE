@@ -2,15 +2,15 @@ from json import loads, dumps
 from re import compile
 from sys import platform
 
-from base.input_program import InputProgram
-from base.option_descriptor import OptionDescriptor
-from platforms.desktop.desktop_handler import DesktopHandler
-from specializations.clingo.desktop.clingo_desktop_service import ClingoDesktopService
-from specializations.dlv.desktop.dlv_desktop_service import DLVDesktopService
-from specializations.dlv2.desktop.dlv2_desktop_service import DLV2DesktopService
-from specializations.idlv.desktop.idlv_desktop_service import IDLVDesktopService
+from embasp.base.input_program import InputProgram
+from embasp.base.option_descriptor import OptionDescriptor
+from embasp.platforms.desktop.desktop_handler import DesktopHandler
+from embasp.specializations.clingo.desktop.clingo_desktop_service import ClingoDesktopService
+from embasp.specializations.dlv.desktop.dlv_desktop_service import DLVDesktopService
+from embasp.specializations.dlv2.desktop.dlv2_desktop_service import DLV2DesktopService
+from embasp.specializations.idlv.desktop.idlv_desktop_service import IDLVDesktopService
 
-from embasp_server_executor.ese_config import config as ec
+from ese_config import config as ec
 
 
 # Check on which OS are we running
@@ -141,9 +141,9 @@ def process_program_and_options(websocket, message: str):
 
     # If running on a Linux system, use the timeout script
     if system == "Linux":
-        exe_path = ec.paths["executables"]["timeout"]
+       exe_path = ec.paths["executables"]["custom_linux"]
     else:
-        exe_path = executable
+        exe_path = str(executable)
 
     if engine == "dlv":
         service = DLVDesktopService(exe_path)
@@ -160,9 +160,20 @@ def process_program_and_options(websocket, message: str):
     handler = DesktopHandler(service)
 
     if system == "Linux":
-        timeout_options = ["-t", ec.limits["time"], "-m", ec.limits["memory"], "--detect-hangups",
-                           "--no-info-on-success", executable]
-        for o in timeout_options:
+        bwrap_options = [
+            "-t", 
+            ec.limits["time"], 
+            "-m", 
+            ec.limits["memory"], 
+            "--detect-hangups",            
+            "--no-info-on-success",
+            "bwrap",
+            "--ro-bind", executable, executable,
+            "--unshare-all",
+            "--new-session",
+            "--die-with-parent",
+                executable]
+        for o in bwrap_options:
             add_option(o, handler)
 
     input_program = InputProgram()
