@@ -9,7 +9,7 @@ setup(
     packages=find_packages(),
     scripts=['embasp_server_executor/ese_main.py'],
 
-    install_requires=['embasp', 'tornado', 'antlr4-python3-runtime'],
+    install_requires=['embasp-python', 'tornado', 'antlr4-python3-runtime'],
     package_data={
         '': ['*.txt', '*.md'],
     },

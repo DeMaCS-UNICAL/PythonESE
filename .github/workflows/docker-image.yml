@@ -1,0 +1,78 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  push_to_registry:
+    name: Push Docker image to Docker Hub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+
+      - name: DLV folder creation
+        run: mkdir -p executables/dlv
+
+      - name: DLV2 folder creation
+        run: mkdir executables/dlv2
+        
+      - name: Clingo folder creation
+        run: mkdir executables/clingo
+
+      - name: Download DLV executables
+        run: |
+          wget -O dlv https://www.dlvsystem.it/files/dlv.x86-64-linux-elf-static.bin
+          mv dlv executables/dlv
+      
+      - name: Download DLV2 executables
+        run: |
+          wget -O dlv https://www.mat.unical.it/DLV2/releases/2.1.2/dlv-2.1.2-linux-x86_64
+          mv dlv executables/dlv2
+      
+      - name: Download Clingo executables
+        run: |
+          wget -O clingo.tar.gz https://master.dl.sourceforge.net/project/potassco/clingo/4.5.4/clingo-4.5.4-linux-x86_64.tar.gz?viasf=1
+
+      - name: Extract Clingo
+        run: |  
+          tar -xzf clingo.tar.gz
+          cd clingo-4.5.4-linux-x86_64
+          mv clingo ../executables/clingo
+
+      - name: Make DLV executable
+        run: chmod +x executables/dlv/dlv
+
+      - name: Make DLV2 executable
+        run: chmod +x executables/dlv2/dlv-2.1.1-linux-x86
+
+      - name: Make Clingo executable
+        run: chmod +x executables/clingo/clingo
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: markducks/loide:ese
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          platforms: linux/amd64
+          push: true
+          tags: markducks/loide:ese
+          build-args: |
+            ARG_API_URL=${{ secrets.API_URL }}
+            ARG_LISTENING_PORT=${{ secrets.LISTENING_PORT}}
+          
+            
