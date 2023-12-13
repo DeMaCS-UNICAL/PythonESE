@@ -1,0 +1,27 @@
+[project]
+name = "python-ese"
+version = "1.0.0"
+description = "PythonESE is a Python web app to execute logic programs with different solvers, using the EmbASP framework."
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [
+    {name = "Stefano Germano", email = "loide@mat.unical.it"}
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent"
+]
+dependencies = [
+    "antlr4-python3-runtime==4.7",
+    "embasp-python",
+    "tornado"
+]
+
+[project.urls]
+Homepage = "https://github.com/DeMaCS-UNICAL/PythonESE"
+Bug Tracker = "https://github.com/DeMaCS-UNICAL/PythonESE/issues"
+Source Code = "https://github.com/DeMaCS-UNICAL/PythonESE"
+
+[project.scripts]
+ese_run = 'embasp_server_executor/ese_main.py'
