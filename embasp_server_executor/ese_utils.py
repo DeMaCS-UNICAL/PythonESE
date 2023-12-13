@@ -141,7 +141,7 @@ def process_program_and_options(websocket, message: str):
 
     # If running on a Linux system, use the timeout script
     if system == "Linux":
-       exe_path = ec.paths["executables"]["custom_linux"]
+        exe_path = ec.paths["executables"]["custom_linux"]
     else:
         exe_path = str(executable)
 
