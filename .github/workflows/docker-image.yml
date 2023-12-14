@@ -43,6 +43,11 @@ jobs:
           tar -xzf clingo.tar.gz
           cd clingo-4.5.4-linux-x86_64
           mv clingo ../executables/clingo
+      
+      - name: Download timeout script
+        run: |
+          wget -O timeout https://github.com/DeMaCS-UNICAL/PythonESE/releases/download/v0.1.0/timeout
+          mv timeout executables/timeout
 
       - name: Make DLV executable
         run: chmod +x executables/dlv/dlv
@@ -52,6 +57,9 @@ jobs:
 
       - name: Make Clingo executable
         run: chmod +x executables/clingo/clingo
+      
+      - name: Make timeout executable
+        run: chmod +x executables/timeout
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
@@ -63,16 +71,14 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: markducks/loide:ese
+          images: loideunical/loide:ese
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
           context: .
           platforms: linux/amd64
           push: true
-          tags: markducks/loide:ese
-          build-args: |
-            ARG_API_URL=${{ secrets.API_URL }}
-            ARG_LISTENING_PORT=${{ secrets.LISTENING_PORT}}
+          tags: loideunical/loide:ese
+          build-args:
           
             
