@@ -141,9 +141,9 @@ def process_program_and_options(websocket, message: str):
 
     # If running on a Linux system, use the timeout script
     if system == "Linux":
-        exe_path = ec.paths["executables"]["timeout"]
+        exe_path = ec.paths["executables"]["custom_linux"]
     else:
-        exe_path = executable
+        exe_path = str(executable)
 
     if engine == "dlv":
         service = DLVDesktopService(exe_path)
@@ -160,9 +160,20 @@ def process_program_and_options(websocket, message: str):
     handler = DesktopHandler(service)
 
     if system == "Linux":
-        timeout_options = ["-t", ec.limits["time"], "-m", ec.limits["memory"], "--detect-hangups",
-                           "--no-info-on-success", executable]
-        for o in timeout_options:
+        bwrap_options = [
+            "-t", 
+            ec.limits["time"], 
+            "-m", 
+            ec.limits["memory"], 
+            "--detect-hangups",            
+            "--no-info-on-success",
+            "bwrap",
+            "--ro-bind", executable, executable,
+            "--unshare-all",
+            "--new-session",
+            "--die-with-parent",
+                executable]
+        for o in bwrap_options:
             add_option(o, handler)
 
     input_program = InputProgram()

@@ -15,7 +15,7 @@
                     "clingo": "executables/clingo/clingo",
                     "dlv2": "executables/dlv2/dlv2",
                     "idlv": "executables/idlv/idlv",
-                    "timeout": "executables/timeout/timeout"
+                    "custom_linux": "executables/timeout"
                 },
                 "certificate": {
                     "cert_file": "cert_files/cert.crt",
@@ -76,7 +76,7 @@
                         "clingo": "executables/clingo/clingo",
                         "dlv2": "executables/dlv2/dlv2",
                         "idlv": "executables/idlv/idlv",
-                        "timeout": "executables/timeout/timeout"
+                        "custom_linux": "executables/timeout"
                     },
                     "certificate": {
                         "cert_file": "cert_files/cert.crt",
@@ -98,7 +98,7 @@
                             "clingo": "executables/clingo/clingo",
                             "dlv2": "executables/dlv2/dlv2",
                             "idlv": "executables/idlv/idlv",
-                            "timeout": "executables/timeout/timeout"
+                            "custom_linux": "executables/timeout"
                         }
                     ],
                     "required": [],
@@ -135,12 +135,12 @@
                                 "executables/idlv/idlv"
                             ]
                         },
-                        "timeout": {
+                        "custom_linux": {
                             "$id": "#/properties/paths/properties/executables/properties/timeout",
                             "type": "string",
                             "title": "Path to the timeout executable",
                             "examples": [
-                                "executables/timeout/timeout"
+                                "executables/timeout"
                             ]
                         }
                     },
