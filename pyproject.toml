@@ -20,8 +20,8 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://github.com/DeMaCS-UNICAL/PythonESE"
-Bug Tracker = "https://github.com/DeMaCS-UNICAL/PythonESE/issues"
-Source Code = "https://github.com/DeMaCS-UNICAL/PythonESE"
+"Bug Tracker" = "https://github.com/DeMaCS-UNICAL/PythonESE/issues"
+Repository = "https://github.com/DeMaCS-UNICAL/PythonESE"
 
 [project.scripts]
 ese_run = 'embasp_server_executor/ese_main.py'
