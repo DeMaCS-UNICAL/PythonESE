@@ -13,7 +13,7 @@
     }
   },
   "server_properties": {
-    "port_number" : "443",
+    "port_number" : "1443",
     "cors_origins" : ["localhost"]
   },
   "output": {
