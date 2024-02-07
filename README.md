@@ -1,3 +1,7 @@
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/DeMaCS-UNICAL/PythonESE/master/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/DeMaCS-UNICAL/PythonESE.svg)](https://github.com/DeMaCS-UNICAL/PythonESE/releases/latest)
+[![GitHub issues](https://img.shields.io/github/issues/DeMaCS-UNICAL/PythonESE.svg)](https://github.com/DeMaCS-UNICAL/PythonESE/issues)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/DeMaCS-UNICAL/PythonESE)
 # PythonESE
 _PythonESE_ is a Python web app to execute logic programs with different solvers, using the [EmbASP](https://github.com/DeMaCS-UNICAL/EmbASP) framework.
 
