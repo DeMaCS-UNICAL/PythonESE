@@ -18,7 +18,7 @@ __*It currently supports only the following formalisms and solvers:*__
   
 __*We encourage any feedback, but we do NOT recommend it for production yet.*__
 
-# Getting Started (Installation and Usage)
+# Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ## Prerequisites
@@ -27,8 +27,7 @@ It requires only [Python&reg;](https://www.python.org) and the [Tornado](https:/
 ## Installing
 Download the [Latest Release](../../releases/latest) of _PythonESE_
 
-Install via `pip` or
-
+Go to the directory where you downloaded the release and run the following command:
 ```
  python setup.py install
 ```
