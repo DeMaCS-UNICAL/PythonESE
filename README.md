@@ -67,7 +67,7 @@ docker build -t python-ese .
 Once the Docker image is built, you can run a Docker container using the following command:
 
 ```bash
-docker run -d --network host --mount type=bind,source=[your/path/to/config],target=/app/config python-ese
+docker run -d --network host --mount type=bind,source=[your/path/to/config],target=/app/config python-ese --privileged=true
 ```
 
 The `--network host` option in the docker run command tells Docker to use the host network for the container. This means the container shares the same network stack as the host and can access network services running on the host directly.
@@ -77,7 +77,9 @@ In this case we use mounts to provide the configuration file to the container.
 
 The configuration file is a JSON file that contains the configuration of PythonESE. It must be placed in a directory on the host and the _full_ path to this directory must be specified in the source option of the --mount option. The JSON schema needs also to be in the same directory.
 
-For examples on how to create or modify the configuration file refer to the next section. If no configuration file is provided the default configuration will be used.
+For examples on how to create or modify the configuration file refer to the ne xt section. If no configuration file is provided the default configuration will be used.
+
+The `--privileged=true` option is used to give the container full access to the host system. This is necessary to run the logic solvers like Clingo in a safe environment using [Bubblewrap](https://github.com/containers/bubblewrap).
 
 # Configuration
 
