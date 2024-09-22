@@ -28,8 +28,8 @@ jobs:
       
       - name: Download DLV2 executables
         run: |
-          wget -O dlv https://www.mat.unical.it/DLV2/releases/2.1.2/dlv-2.1.2-linux-x86_64
-          mv dlv executables/dlv2
+          wget -O dlv2 https://www.mat.unical.it/DLV2/releases/2.1.2/dlv-2.1.2-linux-x86_64
+          mv dlv2 executables/dlv2
       
       - name: Download Clingo executables
         run: |
@@ -38,8 +38,9 @@ jobs:
       - name: Extract Clingo
         run: |  
           tar -xzf clingo.tar.gz
-          cd clingo-4.5.4-linux-x86_64
-          mv clingo ../executables/clingo
+          mv clingo-4.5.4-linux-x86_64/clingo executables/clingo
+          rm -rf clingo-4.5.4-linux-x86_64
+          rm clingo.tar.gz
       
       - name: Download timeout script
         run: |
@@ -50,7 +51,7 @@ jobs:
         run: chmod +x executables/dlv/dlv
 
       - name: Make DLV2 executable
-        run: chmod +x executables/dlv2/dlv-2.1.1-linux-x86
+        run: chmod +x executables/dlv2/dlv2
 
       - name: Make Clingo executable
         run: chmod +x executables/clingo/clingo
