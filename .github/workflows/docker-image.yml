@@ -38,8 +38,9 @@ jobs:
       - name: Extract Clingo
         run: |  
           tar -xzf clingo.tar.gz
-          cd clingo-4.5.4-linux-x86_64
-          mv clingo ../executables/clingo
+          mv clingo-4.5.4-linux-x86_64/clingo executables/clingo
+          rm -rf clingo-4.5.4-linux-x86_64
+          rm clingo.tar.gz
       
       - name: Download timeout script
         run: |
