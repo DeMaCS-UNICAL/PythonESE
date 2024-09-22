@@ -28,8 +28,8 @@ jobs:
       
       - name: Download DLV2 executables
         run: |
-          wget -O dlv https://www.mat.unical.it/DLV2/releases/2.1.2/dlv-2.1.2-linux-x86_64
-          mv dlv executables/dlv2
+          wget -O dlv-2.1.1-linux-x86 https://www.mat.unical.it/DLV2/releases/2.1.2/dlv-2.1.2-linux-x86_64
+          mv dlv-2.1.1-linux-x86 executables/dlv2
       
       - name: Download Clingo executables
         run: |
