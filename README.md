@@ -75,6 +75,8 @@ The `--network host` option in the docker run command tells Docker to use the ho
 The `--mount type=bind, source=[your/path/to/config], target=/app/config` option is used to create a bind mount. A bind mount is a type of mount that allows you to map a host file or directory to a container file or directory (for more information refer to the [official Docker documentation](https://docs.docker.com/storage/bind-mounts/)).
 In this case we use mounts to provide the configuration file to the container. 
 
+**Important note**: We do not provide the executables inside the Docker image. You must download the solvers (DLV, Clingo, etc.) manually and provide the path to the directory containing them using the mount option `--mount type=bind,source=[your/path/to/executables],target=/executables`.
+
 The configuration file is a JSON file that contains the configuration of PythonESE. It must be placed in a directory on the host and the _full_ path to this directory must be specified in the source option of the --mount option. The JSON schema needs also to be in the same directory.
 
 For examples on how to create or modify the configuration file refer to the ne xt section. If no configuration file is provided the default configuration will be used.
