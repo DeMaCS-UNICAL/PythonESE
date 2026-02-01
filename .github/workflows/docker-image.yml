@@ -9,6 +9,8 @@ on:
 jobs:
   push_to_registry:
     name: Push Docker image to Docker Hub
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
@@ -19,16 +21,23 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-      
+
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: loideunical/loide:ese
+          images: loideunical/loide-ese
+          tags: |
+            type=semver,pattern={{version}}
+            type=raw,value=latest
+
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
           context: .
           platforms: linux/amd64
           push: true
-          tags: loideunical/loide:ese
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            APP_VERSION=${{ github.ref_name }}
