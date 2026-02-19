@@ -5,6 +5,8 @@
 # PythonESE
 _PythonESE_ is a Python web app to execute logic programs with different solvers, using the [EmbASP](https://github.com/DeMaCS-UNICAL/EmbASP) framework.
 
+Part of the LoIDE project – [:octocat: repository](https://github.com/DeMaCS-UNICAL/LoIDE) , [🌐 website](https://demacs-unical.github.io/LoIDE) .
+
 ## IMPORTANT NOTE
 __*The project is still at an early stage of development*__  
 __*It currently supports only the following formalisms and solvers:*__  
