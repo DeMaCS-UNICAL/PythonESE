@@ -63,7 +63,13 @@ python -m build
 
 ### Running
 
-Can be invoked using the WebSocket protocol, as explained in the [Wiki of _EmbASPServerExecutor_](https://github.com/DeMaCS-UNICAL/EmbASPServerExecutor/wiki/APIs)
+Simply run:
+
+```
+ese-run
+```
+
+Note that solvers' executions can be invoked using the WebSocket protocol, as explained in the [_EmbASPServerExecutor_ Wiki](https://github.com/DeMaCS-UNICAL/EmbASPServerExecutor/wiki/APIs).
 
 ## Dockerization
 
