@@ -35,6 +35,10 @@ jobs:
 #     flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
 #     # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
 #     flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Test with unittest
-      run: |
-        python -m unittest discover -s tests -p '*_test.py'
+# TODO to run tests we need bwrap, timeout and all executables:
+# executables/clingo/clingo, executables/dlv/dlv, executables/dlv2/dlv2, executables/idlv/idlv
+#        sudo apt-get update
+#        sudo apt-get -y install bubblewrap
+#    - name: Test with unittest
+#      run: |
+#        python -m unittest discover -s tests -p '*_test.py'
