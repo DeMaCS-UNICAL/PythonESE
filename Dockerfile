@@ -2,7 +2,8 @@ FROM python:3
 
 COPY . .
 
-RUN apt-get install bubblewrap
+RUN apt-get update
+RUN apt-get install -y bubblewrap
 
 RUN pip install .
 
