@@ -7,8 +7,8 @@ from tornado.ioloop import IOLoop
 # from tornado.platform.asyncio import AnyThreadEventLoopPolicy
 from tornado.web import Application
 
-from ese_config import config as ec
-from ese_websocket import ESEWebSocket
+from .ese_config import config as ec
+from .ese_websocket import ESEWebSocket
 
 def make_app():
     """
@@ -19,7 +19,7 @@ def make_app():
     return Application([(r"/", ESEWebSocket)])
 
 
-if __name__ == "__main__":
+def main() -> int:
     ec.read_config_file()
 
     app = make_app()
@@ -35,3 +35,7 @@ if __name__ == "__main__":
 
     # asyncio.set_event_loop_policy(AnyThreadEventLoopPolicy())
     IOLoop.current().start()
+
+
+if __name__ == "__main__":
+    sys.exit(main())

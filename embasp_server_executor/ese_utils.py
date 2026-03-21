@@ -10,7 +10,7 @@ from embasp.specializations.dlv.desktop.dlv_desktop_service import DLVDesktopSer
 from embasp.specializations.dlv2.desktop.dlv2_desktop_service import DLV2DesktopService
 from embasp.specializations.idlv.desktop.idlv_desktop_service import IDLVDesktopService
 
-from ese_config import config as ec
+from .ese_config import config as ec
 
 
 # Check on which OS are we running
