@@ -1,27 +1,37 @@
+[build-system]
+requires = [
+    "setuptools >= 77.0.3",
+    "setuptools-scm"
+]
+build-backend = "setuptools.build_meta"
+
 [project]
-name = "python-ese"
-version = "1.0.0"
+name = "PythonESE"
 description = "PythonESE is a Python web app to execute logic programs with different solvers, using the EmbASP framework."
 readme = "README.md"
-license = {file = "LICENSE"}
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
 authors = [
     {name = "Stefano Germano", email = "loide@mat.unical.it"}
 ]
 classifiers = [
+    "Development Status :: 4 - Beta",
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent"
 ]
 dependencies = [
-    "antlr4-python3-runtime==4.7",
-    "embasp-python",
-    "tornado"
+    "embasp-python>=8",
+    "tornado>=6.5.5"
 ]
+keywords = ["logic programming", "ASP", "Datalog"]
+dynamic = ["version"]
 
 [project.urls]
 Homepage = "https://github.com/DeMaCS-UNICAL/PythonESE"
-"Bug Tracker" = "https://github.com/DeMaCS-UNICAL/PythonESE/issues"
 Repository = "https://github.com/DeMaCS-UNICAL/PythonESE"
+Issues = "https://github.com/DeMaCS-UNICAL/PythonESE/issues"
 
 [project.scripts]
-ese_run = 'embasp_server_executor/ese_main.py'
+ese-run = 'embasp_server_executor.ese_main:main'
+
+[tool.setuptools_scm]
