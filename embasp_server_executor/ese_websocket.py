@@ -18,8 +18,12 @@ class ESEWebSocket(WebSocketHandler, Callback):
     io_loop: IOLoop = None
 
     def check_origin(self, origin):
-        parsed_origin = urlparse(origin)
-        return parsed_origin.hostname in ec.cors_origins
+        try:
+            parsed_origin = urlparse(origin)
+            normalized_hostname = parsed_origin.hostname.lower().strip('.')
+            return normalized_hostname in (o.lower().strip('.') for o in ec.cors_origins)
+        except Exception:
+            return False
 
     def open(self):
         # Capture the *current* IOLoop instance - this is the one running the WebSocket
