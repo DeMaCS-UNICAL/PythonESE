@@ -31,6 +31,9 @@ Homepage = "https://github.com/DeMaCS-UNICAL/PythonESE"
 Repository = "https://github.com/DeMaCS-UNICAL/PythonESE"
 Issues = "https://github.com/DeMaCS-UNICAL/PythonESE/issues"
 
+[tool.setuptools]
+packages = ["embasp_server_executor"]
+
 [project.scripts]
 ese-run = 'embasp_server_executor.ese_main:main'
 
