@@ -140,11 +140,37 @@ def process_program_and_options(websocket, message: str):
 
     executable = ec.paths["executables"][engine]
 
-    # If running on a Linux system, use the timeout script
+    # If running on a Linux system, check config to verify whether to use timeout and/or bwrap
+    linux_additional_options = []
+    exe_path = ""
     if system == "Linux":
-        exe_path = ec.paths["executables"]["custom_linux"]
+        if ec.execution_variants["timeout"]:
+            exe_path = ec.paths["executables"]["timeout"]
+            # Append additional options for timeout and memory limits
+            linux_additional_options.extend([
+                "-t",
+                ec.execution_limits["time"],
+                "-m",
+                ec.execution_limits["memory"],
+                "--detect-hangups",
+                "--no-info-on-success"
+            ])
+        if ec.execution_variants["bwrap"]:
+            if exe_path:
+                linux_additional_options.append("bwrap")
+            else:
+                exe_path = "bwrap"
+            linux_additional_options.extend([
+                "--ro-bind", executable, executable,
+                "--unshare-all",
+                "--new-session",
+                "--die-with-parent",
+            ])
+
+    if exe_path:
+        linux_additional_options.append(executable)
     else:
-        exe_path = str(executable)
+        exe_path = executable
 
     if engine == "dlv":
         service = DLVDesktopService(exe_path)
@@ -160,22 +186,8 @@ def process_program_and_options(websocket, message: str):
 
     handler = DesktopHandler(service)
 
-    if system == "Linux":
-        bwrap_options = [
-            "-t", 
-            ec.limits["time"], 
-            "-m", 
-            ec.limits["memory"], 
-            "--detect-hangups",            
-            "--no-info-on-success",
-            "bwrap",
-            "--ro-bind", executable, executable,
-            "--unshare-all",
-            "--new-session",
-            "--die-with-parent",
-                executable]
-        for o in bwrap_options:
-            add_option(o, handler)
+    for o in linux_additional_options:
+        add_option(o, handler)
 
     input_program = InputProgram()
     if system == "Windows":
