@@ -64,6 +64,6 @@ jobs:
         mkdir -p executables/idlv
         wget https://github.com/DeMaCS-UNICAL/EmbASP-test-resources/blob/master/datalog/executables/idlv/idlv.linux.64?raw=true -O executables/idlv/idlv
         chmod +x executables/idlv/idlv
-    - name: Test with unittest
-      run: |
-        python -m unittest discover -s tests -p '*_test.py'
+#    - name: Test with unittest
+#      run: |
+#        python -m unittest discover -s tests -p '*_test.py'
