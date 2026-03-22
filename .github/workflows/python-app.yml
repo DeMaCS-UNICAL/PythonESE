@@ -19,10 +19,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v6
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v6
       with:
-        python-version: "3.10"
+        python-version: "3.11"
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -35,10 +35,35 @@ jobs:
 #     flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
 #     # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
 #     flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-# TODO to run tests we need bwrap, timeout and all executables:
-# executables/clingo/clingo, executables/dlv/dlv, executables/dlv2/dlv2, executables/idlv/idlv
-#        sudo apt-get update
-#        sudo apt-get -y install bubblewrap
-#    - name: Test with unittest
-#      run: |
-#        python -m unittest discover -s tests -p '*_test.py'
+    - name: Install bwrap
+      run: |
+        sudo apt-get update
+        sudo apt-get -y install bubblewrap
+    - name: Download timeout
+      run: |
+        mkdir -p executables
+        wget https://github.com/DeMaCS-UNICAL/PythonESE/releases/download/v0.1.0/timeout -O executables/timeout
+        chmod +x executables/timeout
+    - name: Download clingo
+      run: |
+        mkdir -p executables/clingo
+        wget https://github.com/DeMaCS-UNICAL/EmbASP-test-resources/blob/master/asp/executables/clingo/clingo_linux?raw=true -O executables/clingo/clingo
+        chmod +x executables/clingo/clingo
+    - name: Download dlv
+      run: |
+        mkdir -p executables/dlv
+        wget https://github.com/DeMaCS-UNICAL/EmbASP-test-resources/blob/master/asp/executables/dlv/dlv.x86-64-linux-elf-static.bin?raw=true -O executables/dlv/dlv
+        chmod +x executables/dlv/dlv
+    - name: Download dlv2
+      run: |
+        mkdir -p executables/dlv2
+        wget https://github.com/DeMaCS-UNICAL/EmbASP-test-resources/blob/master/asp/executables/dlv2/dlv2.linux.64?raw=true -O executables/dlv2/dlv2
+        chmod +x executables/dlv2/dlv2
+    - name: Download idlv
+      run: |
+        mkdir -p executables/idlv
+        wget https://github.com/DeMaCS-UNICAL/EmbASP-test-resources/blob/master/datalog/executables/idlv/idlv.linux.64?raw=true -O executables/idlv/idlv
+        chmod +x executables/idlv/idlv
+    - name: Test with unittest
+      run: |
+        python -m unittest discover -s tests -p '*_test.py'
