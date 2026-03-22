@@ -120,6 +120,7 @@ def process_program_and_options(websocket, message: str):
     input_json = message
     websocket.write_message(get_output_data(model="Received command"))
     input_data = loads(input_json)
+    # FIXME As soon as we have the JSON schema, we should validate the input structure before processing `input_data`
     print("Message received: %s\n" % input_data)
 
     if not check_presence_of_parameters(input_data):
